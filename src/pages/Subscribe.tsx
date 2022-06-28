@@ -74,7 +74,7 @@ const navigate = useNavigate()
           </form>
         </div>
       </div>
-      <img src="code_mockup" className="mt-10" alt="" />
+      <img src={code_mockup} className="mt-10" alt="" />
     </div>
   );
 }
