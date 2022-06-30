@@ -1,23 +1,25 @@
-import { gql, useMutation } from "@apollo/client";
+import { GithubLogo, GoogleLogo } from "phosphor-react";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Logo } from "../components/Logo";
 import { useCreateSubscriberMutation } from "../graphql/generated";
 import img from "/public/code_mockup.png";
-
-
-
+import { useAuth } from "../hooks/useAuth";
 export function Subscribe() {
  
 const navigate = useNavigate()
 
-
+  const { user, signInWithGoogle } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
   const [createSubscriber, {loading}] = useCreateSubscriberMutation();
 
   async function handleSubscribe(event: FormEvent) {
+    
+    if(name === "" || email === "") {
+      alert("preencha os campos")
+    }
     event.preventDefault();
     await createSubscriber({
       variables: {
@@ -25,7 +27,14 @@ const navigate = useNavigate()
         email,
       },
     });
+    
     navigate('/event')
+  }
+
+  async function loginGithub(event: FormEvent) {
+    if (!user) {
+      await signInWithGoogle();
+    }
   }
 
   return (
@@ -49,7 +58,7 @@ const navigate = useNavigate()
             Inscreva-se gratuitamente
           </strong>
           <form
-            onSubmit={handleSubscribe}
+            
             className="flex flex-col gap-2 w-full"
           >
             <input
@@ -64,12 +73,19 @@ const navigate = useNavigate()
               placeholder="Digite seu e-mail"
               onChange={(event) => setEmail(event.target.value)}
             />
-            <button
-              className="mt-4 bg-green-500 uppercase py-4 rounded font-bold text-sm houve:bg-green-700 transition-colors disabled:opacity-50"
+            <button 
+              onClick={handleSubscribe}
+              className="mt-4 bg-green-500 uppercase py-4 rounded font-bold text-sm hover:bg-green-700 transition-colors disabled:opacity-50"
               type="submit"
               disabled={loading}
             >
               Garantir minha vaga{" "}
+            </button>
+
+            <button onClick={loginGithub} className="mt-4 bg-gray-500 p-4 flex items-center rounded font-bold text-sm hover:bg-gray-400 hover:text-gray-900 transition-colors"
+              type="submit">
+              <GoogleLogo size={24} />
+                Continue com Google
             </button>
           </form>
         </div>
