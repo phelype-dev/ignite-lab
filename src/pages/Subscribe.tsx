@@ -74,7 +74,7 @@ const navigate = useNavigate()
               Garantir minha vaga{" "}
             </button>
 
-            <a href={import.meta.env.VITE_URL_GIT_AUTH} className="mt-4 bg-gray-500 p-4 flex items-center rounded font-bold text-sm hover:bg-gray-400 hover:text-gray-900 transition-colors"
+            <a href="https://github.com/login/oauth/authorize?scope=user&client_id=e9da15cb19ed50cbcc30" className="mt-4 bg-gray-500 p-4 flex items-center rounded font-bold text-sm hover:bg-gray-400 hover:text-gray-900 transition-colors"
               type="submit">
               <GithubLogo size={24} />
                 Garantir vaga com GitHub{" "}
