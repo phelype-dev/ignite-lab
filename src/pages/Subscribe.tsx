@@ -4,12 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { Logo } from "../components/Logo";
 import { useCreateSubscriberMutation } from "../graphql/generated";
 import img from "/public/code_mockup.png";
-import { useAuth } from "../hooks/useAuth";
 export function Subscribe() {
  
 const navigate = useNavigate()
 
-  const { user, signInWithGoogle } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
@@ -29,12 +27,6 @@ const navigate = useNavigate()
     });
     
     navigate('/event')
-  }
-
-  async function loginGithub(event: FormEvent) {
-    if (!user) {
-      await signInWithGoogle();
-    }
   }
 
   return (
@@ -82,7 +74,7 @@ const navigate = useNavigate()
               Garantir minha vaga{" "}
             </button>
 
-            <a href="https://github.com/login/oauth/authorize?scope=user&client_id=e9da15cb19ed50cbcc30&redirect_uri=http://localhost:3000/event" className="mt-4 bg-gray-500 p-4 flex items-center rounded font-bold text-sm hover:bg-gray-400 hover:text-gray-900 transition-colors"
+            <a href={import.meta.env.VITE_URL_GIT_AUTH} className="mt-4 bg-gray-500 p-4 flex items-center rounded font-bold text-sm hover:bg-gray-400 hover:text-gray-900 transition-colors"
               type="submit">
               <GithubLogo size={24} />
                 Garantir vaga com GitHub{" "}
